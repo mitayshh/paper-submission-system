@@ -1,0 +1,44 @@
+{% extends "author_base.html" %}
+{% block content %}
+{% load staticfiles %}
+
+{% if user.is_authenticated  %}
+
+    {% if auth_papers %}
+
+     <h2> Submissions currently made by you </h2>
+     <br/>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Submision ID</th>
+                    <th>Topic</th>
+                    <th>Authors</th>
+                    <th>Contact</th>
+                    <th>Paper</th>
+                    <th>Revise</th>
+
+                  </tr>
+                </thead>
+                 <tbody>
+
+                    {% for i in auth_papers %}
+
+                        <tr>
+                            <td>{{i.submission_id.id}}</td>
+                            <td>{{i.submission_id.topic}}</td>
+                            <td>{{i.submission_id.author_list}} </td>
+                            <td>{{i.submission_id.contact}} </td>
+                            <td><a href ="{{ MEDIA_URL}}{{i.paper}}" class="btn btn btn-success" role="button">Download Paper</a></td>
+                            <td><a href="{% url 'authorReviseSubmission' i.id %}" class="btn btn btn-success" role="button">Revise Paper</a></td>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+     {% else %}
+         <h2> You have not made any submissions yet!!</h2>
+     {% endif %}
+{% endif %}
+
+{% endblock %}

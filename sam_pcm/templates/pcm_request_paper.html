@@ -1,0 +1,47 @@
+{% extends "author_base.html" %}
+{% block content %}
+{% load staticfiles %}
+
+{% if user.is_authenticated  %}
+
+    {% if user.profile.is_pcm %}
+
+        <h2> Submissions </h2>
+        <br/>
+        {% if paper %}
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Submision ID</th>
+                    <th>Topic</th>
+                    <th>Submitter</th>
+                    <th>Authors</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                 <tbody>
+
+                    {% for i in paper %}
+
+                        <tr>
+                            <td>{{i.submission_id.id}}</td>
+                            <td>{{i.submission_id.topic}} {{ instance.last_name }}</td>
+                            <td>{{i.submission_id.submitter}}</td>
+                            <td>{{i.submission_id.author_list}} </td>
+                            <td>
+                               <a href="{% url 'pcmRequestPaper' i.submission_id.id %}" class="btn btn btn-success" role="button">Request</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+             <h4> Currently there are no un-assigned papers. </h4>
+        {% endif %}
+
+
+     {% endif %}
+
+{% endif %}
+
+{% endblock %}

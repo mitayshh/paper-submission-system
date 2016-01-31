@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block navlinks %}
+     <li><a href="{% url 'adminManageUser' %}">View PCMs</a></li>
+     <li><a href={% url 'pccViewRequests' %}>Requested Papers</a></li>
+     <li><a href="#">View Reviews</a></li>
+     <li><a href="#">Reports</a></li>
+     <li><a href="#">Notifications<span class="badge"></span></a></li>
+{% endblock %}
+{{request.user.profile.getNotificationCount}}
+{% block content %}
+    {% load staticfiles %}
+    {% block admin_body %}
+    {% endblock %}
+{% endblock %}

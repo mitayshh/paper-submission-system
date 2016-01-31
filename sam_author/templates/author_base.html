@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block navlinks %}
+
+     {% if user.profile.is_pcm %}
+        <li><a href="{% url 'authorNewSubmission' %}">New Submissions</a></li>
+        <li><a href="#">Revise Submission</a></li>
+        <li><a href="{% url 'authorViewSubmission' %}">View Submissions</a></li>
+
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Review <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="{% url 'pcmViewAssignedSubs' %}">View Assigned Paper</a></li>
+                  <li><a href="{% url 'pcmViewSubmissions' %}">Request Paper</a></li>
+              </ul>
+        </li>
+     {% elif user.profile.is_author   %}
+         <li><a href="{% url 'authorNewSubmission' %}">New Submissions</a></li>
+        <li><a href="#">Revise Submission</a></li>
+         <li><a href="{% url 'authorViewSubmission' %}">View Submissions</a></li>
+     {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% load staticfiles %}
+    {% block admin_body %}
+
+    {% endblock %}
+{% endblock %}

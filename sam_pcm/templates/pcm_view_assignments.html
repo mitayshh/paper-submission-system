@@ -1,0 +1,48 @@
+{% extends "author_base.html" %}
+{% block content %}
+{% load staticfiles %}
+
+{% if user.is_authenticated  %}
+
+    <H2> Papers Assigned to you :</H2>
+    <br /><br />
+    {% if user.profile.is_pcm %}
+
+        {% if all_assigments %}]
+
+
+            <br />
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Submission Id</th>
+                    <th>Topic</th>
+                    <th>Submitter</th>
+                    <th>Authors</th>
+                    <th>Paper</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                 <tbody>
+
+                    {% for i in all_assignments %}
+
+                        <tr>
+                            <td>{{i.submission_id.id}}</td>
+                            <td>{{i.submission_id.topic}}</td>
+                            <td>{{i.submission_id.submitter}} </td>
+                            <td>{{i.submission_id.author_list}}</td>
+                            <td><a href ="{{ MEDIA_URL}}{{i.paper}}" class="btn btn btn-success" role="button">Download Paper</a></td>
+                            <td><a href="{% url 'pcmRequestPaper' i.submission_id.id %}" class="btn btn btn-success" role="button">Review Paper</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4> You have not been assigned any paper for review.</h4>
+        {% endif %}
+     {% endif %}
+
+{% endif %}
+
+{% endblock %}

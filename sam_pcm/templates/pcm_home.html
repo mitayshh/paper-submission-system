@@ -1,0 +1,26 @@
+{% extends "author_base.html" %}
+{% block content %}
+{% load staticfiles %}
+
+ <style>
+                    table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    }
+                    th, td {
+                    padding: 10px;
+                    }
+                    th {
+                    text-align: left;
+                    }
+                </style>
+{% if user.is_authenticated  %}
+
+    {% if user.profile.is_pcm %}
+        PCM
+
+     {% endif %}
+
+{% endif %}
+
+{% endblock %}

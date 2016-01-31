@@ -1,0 +1,64 @@
+{% extends "pcc_home.html" %}
+{% block content %}
+{% load staticfiles %}
+
+ <style>
+                    table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    }
+                    th, td {
+                    padding: 10px;
+                    }
+                    th {
+                    text-align: left;
+                    }
+                </style>
+{% if user.is_authenticated  %}
+
+    {% if user.profile.is_pcc %}
+
+       <h2> Requested Papers</h2><br />
+
+            {% if requests %}
+
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Submision ID</th>
+                        <th>Topic</th>
+                        <th>Submitter</th>
+                        <th>Authors</th>
+                        <th>Requester</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                     <tbody>
+
+                        {% for i in requests %}
+
+                            <tr>
+                                <td>{{i.submission.id}}</td>
+                                <td>{{i.submission.topic}}</td>
+                                <td>{{i.submission.submitter}}</td>
+                                <td>{{i.submission.author_list}}</td>
+                                <td>{{i.pcm.username}}</td>
+                                <td>
+                                   <a href="{% url 'approvePaperRequest' i.id i.submission.id %}" class="btn btn btn-success" role="button">Accept</a>
+                                   <a href="{% url 'rejectPaperRequest' i.id i.submission.id %}" class="btn btn btn-danger" role="button">Reject</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {%  else %}
+
+                <h4>Currently no papers have been requested for review</h4>
+            {% endif %}
+
+
+     {% endif %}
+
+{% endif %}
+
+{% endblock %}

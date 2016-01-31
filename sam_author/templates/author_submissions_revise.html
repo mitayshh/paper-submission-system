@@ -1,0 +1,26 @@
+{% extends "author_base.html" %}
+{% block content %}
+{% load staticfiles %}
+
+{% if user.is_authenticated  %}
+
+  <h2> New Submission </h2>
+    <br />
+    <br />
+    <h4> Please fill the below details and upload your paper and click on "Submit" to make a new submission. </h4>
+
+    {% if user.profile.is_author or user.profile.is_pcm %}
+
+        <form action="/authorReviseSubmission/{{ curr_paper.id }}/" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+
+			<div>
+				{{ form }}
+                <br /><br />
+            <input type="submit" value="Submit" class="btn btn-success" />
+			</div>
+    </form>
+     {% endif %}
+
+{% endif %}
+
+{% endblock %}
